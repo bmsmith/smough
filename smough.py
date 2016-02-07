@@ -22,13 +22,17 @@ def init():
         current_line += 1
     screen.refresh()
     return screen
-
 def cleanup():
     curses.endwin()
 
 def main():
     screen = init()
-    time.sleep(3)
+    exit = False
+    screen.keypad(True)
+    while not exit:
+        nextchar = screen.getch()
+        exit = nextchar == ord('q') or nextchar == ord('Q')
+    
     cleanup()
 
 if __name__ == "__main__":
