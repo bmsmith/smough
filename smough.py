@@ -9,7 +9,7 @@ def newmap():
 
 menu_options = { "Create New Map": newmap, "Exit Smough": quit }
 
-def main():
+def init():
     screen = curses.initscr()
     curses.noecho()
     screen.clear()
@@ -21,8 +21,15 @@ def main():
         screen.addstr(current_line, indent, key)
         current_line += 1
     screen.refresh()
-    time.sleep(3)
+    return screen
+
+def cleanup():
     curses.endwin()
+
+def main():
+    screen = init()
+    time.sleep(3)
+    cleanup()
 
 if __name__ == "__main__":
     main()
