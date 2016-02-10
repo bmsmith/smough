@@ -1,4 +1,4 @@
-import curses, time
+import curses, time, smough_map
 
 def quit():
     curses.endwin()
@@ -7,13 +7,12 @@ def quit():
 def newmap():
     pass
 
-menu_options = { "Create New Map": newmap, "Exit Smough": quit }
+menu_options = { "c: Create New Map": newmap, "q: Exit Smough": quit }
 
 def init():
     screen = curses.initscr()
     curses.noecho()
     screen.clear()
-    screen.border()
     indent = 3
     screen.addstr(1, 1, "Smough v0.1 (pre-alpha)")
     current_line = 3
@@ -31,6 +30,10 @@ def main():
     screen.keypad(True)
     while not exit:
         nextchar = screen.getch()
+        if nextchar == ord('c') or nextchar == ord('C'):
+            my_terrain = smough_map.Terrain()
+            my_map = smough_map.Map(10, 10, my_terrain)
+            screen.addstr(my_map.__str__())
         exit = nextchar == ord('q') or nextchar == ord('Q')
     
     cleanup()
